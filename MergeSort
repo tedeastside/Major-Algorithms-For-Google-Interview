@@ -1,0 +1,45 @@
+public static int partition(int[] arr, int si, int ei) {
+
+		int count =0;
+		
+//		Counting number of ELments smaller than arr[0]
+		for(int i=si+1;i<=ei;i++) {
+			if(arr[i]<arr[si]) {
+				count++;
+			}
+		}
+		
+//		Swap
+		int pI = si+count;
+		int x = arr[pI];
+		arr[pI]=arr[si];
+		arr[si]=x;
+		
+//		Sorting in a way that left is smaller and right is larger than pivot element
+		int i = si;
+		int j = ei;
+		while(i<pI && j>pI) {
+			if(arr[i]<arr[pI]) {
+				i++;
+			}else if(arr[j]>=arr[pI]) {
+				j--;
+			}else {
+				x = arr[i];
+				arr[i] = arr[j];
+				arr[j] = x;
+				i++;
+				j--;
+			}
+		}
+		return pI;
+	}
+	
+	public static void quickSort(int[] arr, int si,  int ei) {
+		if(si>=ei) {
+			return;
+		}
+		int i = partition(arr, si, ei);
+		quickSort(arr, si, i-1);
+		quickSort(arr, i+1, ei);
+		return ;
+	}
